@@ -10,10 +10,20 @@ app.use(bodyParser.urlencoded({extended: true}))
 mongoose.connect("mongodb://localhost:27017/notesDB")
 
 app.get('/', (req, res) => {
-    DB.Note.create({title: 'this is title test 2', content: 'this is content 2'}, () => {
-    res.send('<h1>Server Test</h1>')
-  })
+  res.send('<h1>Root</h1>')
+})
 
+app.post('/note', (req, res) => {
+  const reqTitle = req.body.title;
+  const reqContent = req.body.content;
+  DB.Note.create({ title: reqTitle,
+                   content: reqContent }, (err) => {
+  if(err){
+    res.send(err)
+  } else {
+    res.send('Note successfully created!')
+  }
+})
 })
 
 app.listen(process.env.PORT, () => {
