@@ -13,6 +13,16 @@ app.get('/', (req, res) => {
   res.send('<h1>Root</h1>')
 })
 
+app.get('/notes', (req, res) => {
+  DB.Note.find((err, notes) => {
+    if(err) {
+      res.send("Something went wrong when fetching the notes data.")
+    } else {
+      res.send(notes)
+    }
+  })
+})
+
 app.post('/note', (req, res) => {
   const reqTitle = req.body.title;
   const reqContent = req.body.content;
