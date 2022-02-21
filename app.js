@@ -63,9 +63,16 @@ app.post('/note', (req, res) => {
 app.delete('/note/:note_id', (req, res) => {
   const note_id = req.params.note_id;
   if(note_id){
+    DB.Note.deleteOne({_id: note_id}, (err) => {
+      if(err){
+        res.send(`There was an error deleting the note. <br/> ${note_id}`)
+      }else {
+        res.send('Successfully deleted the note.')
+      }
 
+    })
   } else {
-
+    res.send("Invalid note_id or the note with the specified id doesn't exist.")
   }
 })
 
