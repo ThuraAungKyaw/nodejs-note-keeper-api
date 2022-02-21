@@ -24,12 +24,14 @@ app.get('/notes', (req, res) => {
 })
 
 app.patch('/note/:note_id', (req, res) => {
+
   const note_id = req.params.note_id;
-  if(note_id && req.body){
+
+  if(note_id){
     DB.Note.findOneAndUpdate({_id:note_id}, {...req.body}, (err, note) => {
 
       if(err) {
-        res.send("Something went wrong when updating the data.")
+        res.send(`Something went wrong when updating the data. <br/> ${err}`)
       } else {
         res.send(`Successfully updated the note with id ${note_id}!`)
       }
@@ -51,11 +53,20 @@ app.post('/note', (req, res) => {
                    created_on: new Date()
                   }, (err) => {
   if(err){
-    res.send(err)
+    res.send(`There was an error while creating a new note. <br/> ${err}`)
   } else {
     res.send('Note successfully created!')
   }
 })
+})
+
+app.delete('/note/:note_id', (req, res) => {
+  const note_id = req.params.note_id;
+  if(note_id){
+
+  } else {
+
+  }
 })
 
 app.listen(process.env.PORT, () => {
