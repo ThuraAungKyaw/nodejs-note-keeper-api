@@ -65,7 +65,7 @@ app.delete('/note/:note_id', (req, res) => {
   if(note_id){
     DB.Note.deleteOne({_id: note_id}, (err) => {
       if(err){
-        res.send(`There was an error deleting the note. <br/> ${note_id}`)
+        res.send(`There was an error deleting the note. <br/> ${err}`)
       }else {
         res.send('Successfully deleted the note.')
       }
