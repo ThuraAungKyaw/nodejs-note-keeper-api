@@ -8,6 +8,10 @@ const note = mongoose.Schema({
    content: {
     type: String,
     required: true
+  },
+  created_on: {
+    type: Date,
+    required: true
   }
 })
 

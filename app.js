@@ -23,11 +23,17 @@ app.get('/notes', (req, res) => {
   })
 })
 
+app.patch('/note/:note_id', (req, res) => {
+
+})
+
 app.post('/note', (req, res) => {
   const reqTitle = req.body.title;
   const reqContent = req.body.content;
   DB.Note.create({ title: reqTitle,
-                   content: reqContent }, (err) => {
+                   content: reqContent,
+                    created_on: new Date()
+                  }, (err) => {
   if(err){
     res.send(err)
   } else {
