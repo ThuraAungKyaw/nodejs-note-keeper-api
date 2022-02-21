@@ -24,6 +24,22 @@ app.get('/notes', (req, res) => {
 })
 
 app.patch('/note/:note_id', (req, res) => {
+  const note_id = req.params.note_id;
+  if(note_id && req.body){
+    DB.Note.findOneAndUpdate({_id:note_id}, {...req.body}, (err, note) => {
+
+      if(err) {
+        res.send("Something went wrong when updating the data.")
+      } else {
+        res.send(`Successfully updated the note with id ${note_id}!`)
+      }
+
+    })
+  } else {
+      res.send("The note_id and/or the request body cannot be empty.")
+  }
+
+
 
 })
 
@@ -32,7 +48,7 @@ app.post('/note', (req, res) => {
   const reqContent = req.body.content;
   DB.Note.create({ title: reqTitle,
                    content: reqContent,
-                    created_on: new Date()
+                   created_on: new Date()
                   }, (err) => {
   if(err){
     res.send(err)
